@@ -22,15 +22,14 @@ extension Array where Element: Nameable {
     }
 }
 
+#warning("Test")
 extension Array where Element: Identifiable {
     public func removeDuplicates() -> [Element] {
-        var items: [Element] = []
         self.reduce(into: [Element]()) { result, element in
-//            if !result.contains(element) {
-//                result.append(element)
-//            }
+            if !result.contains(where: { $0.id == element.id}) {
+                result.append(element)
+            }
         }
-        return items
     }
 }
 

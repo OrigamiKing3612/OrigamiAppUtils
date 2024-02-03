@@ -39,6 +39,14 @@ extension Array where Element: Identifiable {
             }
         }
     }
+    public func getIndex(id: Element.ID) -> Int? {
+        for (index, item) in self.enumerated() {
+            if item.id == id {
+                return index
+            }
+        }
+        return nil
+    }
 }
 
 extension String {

@@ -20,6 +20,14 @@ extension Array where Element: Nameable {
         }
         return nil
     }
+    public func getIndex(name: Element.Name) -> Int? {
+        for (index, item) in self.enumerated() {
+            if item.name == name {
+                return index
+            }
+        }
+        return nil
+    }
 }
 
 #warning("Test")

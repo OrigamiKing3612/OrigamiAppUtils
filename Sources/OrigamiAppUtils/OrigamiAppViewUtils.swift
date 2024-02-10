@@ -41,11 +41,7 @@ extension View {
         self.foregroundStyle(.gray)
     }
     public func placeholderText() -> some View {
-#if os(iOS)
-        self.foregroundStyle(Color(UIColor.placeholderText))
-#elseif os(macOS)
         self.gray()
-#endif
     }
     
     /// Use this if:

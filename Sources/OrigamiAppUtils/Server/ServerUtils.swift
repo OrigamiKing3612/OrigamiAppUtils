@@ -33,6 +33,7 @@ public enum NetworkError: String, Error {
 }
 
 public enum HTTPMethods: String {
+    case none = ""
     case post = "POST"
     case delete = "DELETE"
     /// DO NOT USE only use if no data is sent

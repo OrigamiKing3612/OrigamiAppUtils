@@ -1,17 +1,13 @@
 import Foundation
 
-extension Array where Element: Identifiable {
-    public func find(id: Element.ID) -> Element? {
-        for item in self {
-            if item.id == id {
-                return item
+extension Array where Element: Nameable {
+    public func removeDuplicates() -> [Element] {
+        self.reduce(into: [Element]()) { result, element in
+            if !result.contains(where: { $0.name == element.name }) {
+                result.append(element)
             }
         }
-        return nil
     }
-}
-
-extension Array where Element: Nameable {
     public func find(name: Element.Name) -> Element? {
         for item in self {
             if item.name == name {
@@ -29,15 +25,30 @@ extension Array where Element: Nameable {
         return nil
     }
 }
-
-#warning("Test")
-extension Array where Element: Identifiable {
+extension Array where Element: Equatable {
     public func removeDuplicates() -> [Element] {
         self.reduce(into: [Element]()) { result, element in
-            if !result.contains(where: { $0.id == element.id}) {
+            if !result.contains(where: { $0 == element }) {
                 result.append(element)
             }
         }
+    }
+}
+extension Array where Element: Identifiable {
+    public func removeDuplicates() -> [Element] {
+        self.reduce(into: [Element]()) { result, element in
+            if !result.contains(where: { $0.id == element.id }) {
+                result.append(element)
+            }
+        }
+    }
+    public func find(id: Element.ID) -> Element? {
+        for item in self {
+            if item.id == id {
+                return item
+            }
+        }
+        return nil
     }
     public func getIndex(id: Element.ID) -> Int? {
         for (index, item) in self.enumerated() {

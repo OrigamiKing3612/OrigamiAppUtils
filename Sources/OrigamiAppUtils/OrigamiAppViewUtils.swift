@@ -43,18 +43,17 @@ extension View {
     public func placeholderText() -> some View {
         self.gray()
     }
-    
     /// Use this if:
     /// .light ? .white : .black
     /// .dark ? .black : .white
     public func colorScheme() -> some View {
-        self.modifier(ColorSchemeText())
+        self.modifier(ColorSchemeText { $0 ? .white : .black })
     }
     /// Use this if:
     /// .light ? .black : .white
     /// .dark ? .white : .black
     public func inverseColorScheme() -> some View {
-        self.modifier(InverseColorSchemeText())
+        self.modifier(ColorSchemeText { $0 ? .black : .white })
     }
     public func white() -> some View {
         self.foregroundStyle(.white)
@@ -63,25 +62,17 @@ extension View {
         self.foregroundStyle(.black)
     }
     public func warningText() -> some View {
-        self
-            .bold()
-            .red()
+        self.bold().red()
     }
 }
 
 public struct ColorSchemeText: ViewModifier {
     @Environment(\.colorScheme) var colorScheme
     
-    public func body(content: Content) -> some View {
-        content.foregroundStyle(colorScheme == .light ? .white : .black)
-    }
-}
-
-public struct InverseColorSchemeText: ViewModifier {
-    @Environment(\.colorScheme) var colorScheme
+    let color: (Bool) -> Color
     
     public func body(content: Content) -> some View {
-        content.foregroundStyle(colorScheme == .light ? .black : .white)
+        content.foregroundStyle(color(colorScheme == .light))
     }
 }
 
@@ -102,6 +93,20 @@ extension View {
     }
     public func watchOS(_ modifier: (Self) -> some View) -> some View {
 #if os(watchOS)
+        modifier(self)
+#else
+        self
+#endif
+    }
+    public func tvOS(_ modifier: (Self) -> some View) -> some View {
+#if os(tvOS)
+        modifier(self)
+#else
+        self
+#endif
+    }
+    public func visionOS(_ modifier: (Self) -> some View) -> some View {
+#if os(visionOS)
         modifier(self)
 #else
         self

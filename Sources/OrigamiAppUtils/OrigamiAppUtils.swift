@@ -1,6 +1,14 @@
 import Foundation
 
 extension Array where Element: Nameable {
+    public func find(name: Element.Name) -> Bool {
+        for item in self {
+            if item.name == name {
+                return true
+            }
+        }
+        return false
+    }
     public func find(name: Element.Name) -> Element? {
         for item in self {
             if item.name == name {
@@ -28,6 +36,14 @@ extension Array where Element: Equatable {
     }
 }
 extension Array where Element: Identifiable {
+    public func find(id: Element.ID) -> Bool {
+        for item in self {
+            if item.id == id {
+                return true
+            }
+        }
+        return false
+    }
     public func find(id: Element.ID) -> Element? {
         for item in self {
             if item.id == id {

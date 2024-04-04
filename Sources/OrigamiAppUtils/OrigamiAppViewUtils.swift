@@ -112,5 +112,13 @@ extension View {
         self
 #endif
     }
+    @ViewBuilder
+    public func conditional(_ condition: Bool, _ modifier: (Self) -> some View) -> some View {
+        if condition {
+            modifier(self)
+        } else {
+            self
+        }
+    }
 }
 

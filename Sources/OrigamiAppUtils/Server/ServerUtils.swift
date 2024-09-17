@@ -30,6 +30,7 @@ public enum NetworkError: String, Error {
     case jsonDecodingError = "Json Decoding Error"
     case invalidUrl = "Invalid Url"
     case unknownError = "Unknown Error"
+    case notLoggedIn = "Not Logged In"
 }
 
 public enum HTTPMethods: String {
